@@ -27,6 +27,7 @@ The project covers the full data science workflow: loading and inspecting the da
 ## Visualizations
 ### Univariate Visualization
 **Sales Distribution (Histogram)** 
+<img width="571" height="432" alt="hist_for_sales" src="https://github.com/user-attachments/assets/d9baf214-fae5-4af4-ad16-61ff7e1abd42" />
 
 The histogram indicates that the majority of sales values fall within the range of 40 to 2000, suggesting that most products generate relatively low to moderate sales.
 

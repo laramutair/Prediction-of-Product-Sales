@@ -33,6 +33,8 @@ The histogram indicates that the majority of sales values fall within the range 
 
 ### Multivariate Visualization
 **Sales by Location Type and Outlet Type (Barplot)**
+<img width="580" height="461" alt="location and type VS sales" src="https://github.com/user-attachments/assets/4820eb9b-9c8d-4bae-b59d-7fb38aab7d0e" />
+
 
 The bar plot shows the relationship between location type and sales, with different outlet types represented by different colors.
 From the visualization, Supermarket Type3 in Tier 3 locations has the highest average sales, reaching around 3700, which is significantly higher than other outlet types.

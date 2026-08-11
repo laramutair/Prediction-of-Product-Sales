@@ -92,6 +92,55 @@ The tuned model explains **58.7% of the variance in sales** on unseen data. On a
  
 **Why RMSE was chosen as the primary metric:**
 RMSE was selected because it penalizes large prediction errors more heavily than MAE, making it more sensitive to significant mistakes. Additionally, since RMSE is expressed in the same unit as the target variable (dollars), it is more interpretable for business stakeholders than MSE.
+
+
+## Explaining Model Predictions
+
+### Linear Regression Coefficients
+
+<img width="1038" height="1077" alt="Screenshot 2026-08-11 134541" src="https://github.com/user-attachments/assets/ed37dcb1-cdeb-4afb-aade-afd894f68c5a" />
+
+
+The plot above shows the coefficients from the Linear Regression model. Each coefficient represents how much the predicted sales change when that feature increases by one unit (for numeric features) or when that category is present (for encoded categorical features), holding all other features constant.
+
+**Top 3 Most Impactful Features:**
+
+1. **Outlet_Type_Supermarket Type3 (+1695.3)** — Stores classified as "Supermarket Type3" have, on average, about 1695 units higher predicted sales compared to the baseline store type. This is the strongest positive driver in the model.
+2. **Outlet_Type_Grocery Store (-1562.3)** — Being a "Grocery Store" lowers predicted sales by about 1562 units compared to the baseline. Small grocery stores clearly underperform compared to supermarkets, making this the strongest negative driver in the model.
+3. **Item_MRP (+984.4)** — For every one-unit increase in the (scaled) item price, predicted sales increase by about 984 units. Higher-priced items tend to generate more sales revenue.
+
+---
+
+### Random Forest Feature Importances
+
+<img width="1048" height="733" alt="Screenshot 2026-08-11 134510" src="https://github.com/user-attachments/assets/0a4abf30-412b-4045-88a3-89b616a18d88" />
+
+
+Unlike coefficients, feature importances don't indicate direction (positive/negative) — they only show how much each feature contributed to reducing prediction error across the model's decision trees.
+
+**Top 5 Most Important Features:**
+
+1. **Item_MRP (47.6%)** — By far the most important feature; the item's price has the biggest influence on predicted sales.
+2. **Outlet_Type_Grocery Store (10.6%)** — Whether the outlet is a small grocery store strongly affects predicted sales.
+3. **Item_Visibility (6.4%)** — How visible the item is on the shelf plays a meaningful role in sales.
+4. **Outlet_Establishment_Year (6.3%)** — How long the store has been open contributes to predicting sales, likely reflecting store maturity and an established customer base.
+5. **Outlet_Type_Supermarket Type3 (5.9%)** — Being a large supermarket format is also an important predictor.
+
+**Key Insight:** Both models: Linear Regression and Random Forest, independently identified `Item_MRP` and `Outlet_Type` (Grocery Store and Supermarket Type3) as top drivers of sales. Since two very different types of models reached the same conclusion, this gives strong confidence that these features are genuinely important, not just an artifact of one specific model.
+
+---
+
+## Final Recommendations to Stakeholder
+
+1. **Prioritize Supermarket Type3 expansion.** This outlet type consistently shows the highest sales across both the EDA and the models. Opening new stores of this type, or converting underperforming outlets to this format where feasible, is likely to have the largest positive impact on revenue.
+
+2. **Re-evaluate the Grocery Store format.** Grocery Stores consistently show the lowest sales and are the strongest negative predictor in the model. The business should investigate whether this is due to store size, product assortment, foot traffic, or location, and consider whether resources would be better allocated to supermarket formats instead.
+
+3. **Pricing strategy matters.** `Item_MRP` is the single most important feature for predicting sales. This suggests pricing and product positioning should be reviewed carefully, for example, testing whether premium products are being placed and promoted effectively in stores.
+
+4. **Improve product visibility.** Since `Item_Visibility` is a meaningful predictor, ensuring that products (especially higher-margin ones) are given better shelf placement could help boost sales.
+
+5. **Use the model as a decision-support tool, not a final answer.** The tuned Random Forest explains about 59% of the variation in sales on unseen data, with predictions typically within roughly $1,067 of actual sales. This makes it useful for high-level planning and prioritization, but it should support human judgment rather than replace it, especially for high-stakes decisions.
  
 ---
  
